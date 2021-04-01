@@ -32,6 +32,7 @@ modules:
     - name: BusinessPartnerValidation-dest
     - name: BusinessPartnerValidation-ems
     - name: BusinessPartnerValidation-cs
+    - name : BusinessPartnerValidation-logs
    provides:
     - name: srv-binding      # required by consumers of CAP services (e.g. approuter)
       properties:
@@ -107,5 +108,10 @@ resources:
  - name: BusinessPartnerValidation-cs
    parameters:
      service: connectivity
+     service-plan: lite
+   type: org.cloudfoundry.managed-service
+ - name: BusinessPartnerValidation-logs
+   parameters:
+     service: application-logs
      service-plan: lite
    type: org.cloudfoundry.managed-service
