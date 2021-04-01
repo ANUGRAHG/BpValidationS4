@@ -59,8 +59,8 @@ stages:
 #      - alias: 'mySystemAlias'
 #        credentialId: 'mySystemCredentialsId'
 
-   Release:
-    cfTargets:
+    Release:
+     cfTargets:
       - org: 'TTC_FIORI_qxygy614lxglmdqk'
         space: 'dev'
         apiEndpoint: 'https://api.cf.sap.hana.ondemand.com'
