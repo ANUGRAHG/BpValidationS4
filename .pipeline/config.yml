@@ -59,7 +59,7 @@ stages:
 #      - alias: 'mySystemAlias'
 #        credentialId: 'mySystemCredentialsId'
 
-  Release:
+   Release:
     cfTargets:
       - org: 'TTC_FIORI_qxygy614lxglmdqk'
         space: 'dev'
