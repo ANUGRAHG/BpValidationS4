@@ -12,58 +12,28 @@
 
 ### General project setup
 general:
-  unsafeMode: false
   projectName: 'BpValidationS4'
-  productiveBranch: 'main'
+  pipeline: 'sap-cloud-sdk'    # this line is mandatory
+  buildTool: 'mta'
 
 ### Step-specific configuration
 steps:
-  artifactPrepareVersion:
-    buildTool: 'mta'
-  npmExecute:
-    dockerImage: 'ppiper/node-browsers:v2'
   cloudFoundryDeploy:
-    dockerImage: 'ppiper/cf-cli'
+    cloudFoundry:
+      credentialsId: 'global'
+      apiEndpoint: 'https://api.cf.sap.hana.ondemand.com'    # for example, https://api.cf.eu10.hana.ondemand.com
+      org: 'TTC_FIORI_qxygy614lxglmdqk'
+      space: 'dev'
     mtaDeployParameters: '-f --version-rule ALL'
-  mtaBuild:
-    mtaBuildTool: "cloudMbt"
+  
+  npmExecuteLint:
+    failOnError: true
+
 
 ### Stage-specific configuration
 stages:
-   npmAudit:
-    auditedAdvisories:
-    # high
-      - 550  
-      - 593
-      - 1184
-      - 755
-      - 1065
-      - 1164
-      - 1316
-      - 1324
-      - 1325
-    # moderate
-      - 535
-      - 1300
- 
-   lint:
-    ui5BestPractices:
-      failThreshold:
-        error: 100
-        warning: 500
-        info: 1000
+  Build:
+    npmExecuteLint: true
    
-
-#  Integration:
-#    credentials:
-#      - alias: 'mySystemAlias'
-#        credentialId: 'mySystemCredentialsId'
-
-    Release:
-     cfTargets:
-      - org: 'TTC_FIORI_qxygy614lxglmdqk'
-        space: 'dev'
-        apiEndpoint: 'https://api.cf.sap.hana.ondemand.com'
-        appName: 'myAppName'
-        manifest: 'manifest.yml'
-        credentialsId: 'global'
+  Release:
+    cloudFoundryDeploy: true
